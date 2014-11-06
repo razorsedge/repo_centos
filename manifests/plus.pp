@@ -15,21 +15,22 @@ class repo_centos::plus {
     $enabled = '0'
   }
 
-  #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
-  #baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/
+  #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=centosplus
+  #baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/
 
   # Yumrepo ensure only in Puppet >= 3.5.0
   if versioncmp($::puppetversion, '3.5.0') >= 0 {
-    Yumrepo <| title == 'centos-plus' |> { ensure => $repo_centos::ensure_plus }
+    Yumrepo <| title == 'centosplus' |> { ensure => $repo_centos::ensure_plus }
   }
 
-  yumrepo { 'centos-plus':
-    baseurl  => "${repo_centos::repourl}/${repo_centos::urlbit}/centosplus/${::architecture}",
-    descr    => "${::operatingsystem} ${repo_centos::releasever} Plus - ${::architecture}",
-    enabled  => $enabled,
-    gpgcheck => '1',
-    gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
-    #priority => '2',
+  yumrepo { 'centosplus':
+    baseurl    => "${repo_centos::repourl}/${repo_centos::urlbit}/centosplus/\$basearch/",
+    mirrorlist => "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=centosplus${repo_centos::mirrorlist_tail}",
+    descr      => 'CentOS-$releasever - Plus',
+    enabled    => $enabled,
+    gpgcheck   => '1',
+    gpgkey     => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
+    #priority   => '2',
   }
 
 }

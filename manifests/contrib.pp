@@ -15,16 +15,17 @@ class repo_centos::contrib {
 
   # Yumrepo ensure only in Puppet >= 3.5.0
   if versioncmp($::puppetversion, '3.5.0') >= 0 {
-    Yumrepo <| title == 'centos-contrib' |> { ensure => $repo_centos::ensure_contrib }
+    Yumrepo <| title == 'contrib' |> { ensure => $repo_centos::ensure_contrib }
   }
 
-  yumrepo { 'centos-contrib':
-    baseurl  => "${repo_centos::repourl}/${repo_centos::urlbit}/contrib/${::architecture}",
-    descr    => "${::operatingsystem} ${repo_centos::releasever} contrib - ${::architecture}",
-    enabled  => $enabled,
-    gpgcheck => '1',
-    gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
-    #priority => '2',
+  yumrepo { 'contrib':
+    baseurl    => "${repo_centos::repourl}/${repo_centos::urlbit}/contrib/\$basearch/",
+    mirrorlist => "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=contrib${repo_centos::mirrorlist_tail}",
+    descr      => 'CentOS-$releasever - Contrib',
+    enabled    => $enabled,
+    gpgcheck   => '1',
+    gpgkey     => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
+    #priority   => '2',
   }
 
 }

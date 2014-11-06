@@ -12,6 +12,7 @@ class repo_centos::params {
   $repourl                     = 'http://mirror.centos.org/centos'
   $debug_repourl               = 'http://debuginfo.centos.org'
   $source_repourl              = 'http://vault.centos.org'
+  $mirrorlisturl               = 'http://mirrorlist.centos.org'
   $enable_base                 = true
   $enable_contrib              = false
   $enable_cr                   = false
@@ -32,4 +33,8 @@ class repo_centos::params {
   $ensure_updates              = 'present'
   $ensure_source               = 'present'
   $ensure_debug                = 'present'
+
+  if $::operatingsystemmajrelease -ge '6' {
+    $mirrorlist_tail           = '&infra=$infra'
+  }
 }

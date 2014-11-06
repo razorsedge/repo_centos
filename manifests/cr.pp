@@ -19,12 +19,12 @@ class repo_centos::cr {
 
   # Yumrepo ensure only in Puppet >= 3.5.0
   if versioncmp($::puppetversion, '3.5.0') >= 0 {
-    Yumrepo <| title == 'centos-cr' |> { ensure => $repo_centos::ensure_cr }
+    Yumrepo <| title == 'cr' |> { ensure => $repo_centos::ensure_cr }
   }
 
-  yumrepo { 'centos-cr':
-    baseurl  => "${repo_centos::repourl}/${repo_centos::urlbit}/cr/${::architecture}",
-    descr    => "${::operatingsystem} ${repo_centos::releasever} Continuous Release - ${::architecture}",
+  yumrepo { 'cr':
+    baseurl  => "${repo_centos::repourl}/${repo_centos::urlbit}/cr/\$basearch/",
+    descr    => 'CentOS-$releasever - CR',
     enabled  => $enabled,
     gpgcheck => '1',
     gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",

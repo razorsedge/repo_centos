@@ -49,6 +49,7 @@ class repo_centos (
     $repourl                     = $repo_centos::params::repourl,
     $debug_repourl               = $repo_centos::params::debug_repourl,
     $source_repourl              = $repo_centos::params::source_repourl,
+    $mirrorlisturl               = $repo_centos::params::mirrorlisturl,
     $enable_base                 = $repo_centos::params::enable_base,
     $enable_contrib              = $repo_centos::params::enable_contrib,
     $enable_cr                   = $repo_centos::params::enable_cr,
@@ -72,6 +73,7 @@ class repo_centos (
   validate_string($repourl)
   validate_string($debug_repourl)
   validate_string($source_repourl)
+  validate_string($mirrorlisturl)
   validate_bool($enable_base)
   validate_bool($enable_contrib)
   validate_bool($enable_cr)

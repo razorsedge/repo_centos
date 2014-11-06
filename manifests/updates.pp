@@ -14,16 +14,17 @@ class repo_centos::updates {
 
   # Yumrepo ensure only in Puppet >= 3.5.0
   if versioncmp($::puppetversion, '3.5.0') >= 0 {
-    Yumrepo <| title == 'centos-updates' |> { ensure => $repo_centos::ensure_updates }
+    Yumrepo <| title == 'updates' |> { ensure => $repo_centos::ensure_updates }
   }
 
-  yumrepo { 'centos-updates':
-    baseurl  => "${repo_centos::repourl}/${repo_centos::urlbit}/updates/${::architecture}",
-    descr    => "${::operatingsystem} ${repo_centos::releasever} Updates - ${::architecture}",
-    enabled  => $enabled,
-    gpgcheck => '1',
-    gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
-    #priority => '1',
+  yumrepo { 'updates':
+    baseurl    => "${repo_centos::repourl}/${repo_centos::urlbit}/updates/\$basearch/",
+    mirrorlist => "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=updates${repo_centos::mirrorlist_tail}",
+    descr      => 'CentOS-$releasever - Updates',
+    enabled    => $enabled,
+    gpgcheck   => '1',
+    gpgkey     => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-${repo_centos::releasever}",
+    #priority   => '1',
   }
 
 }
