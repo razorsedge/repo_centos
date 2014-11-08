@@ -15,11 +15,11 @@ class repo_centos::extras {
     $enabled = '0'
   }
   if $repo_centos::enable_mirrorlist {
-   $mirrorlist = "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=extras${repo_centos::mirrorlist_tail}"
-   $baseurl = 'absent'
+    $mirrorlist = "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=extras${repo_centos::mirrorlist_tail}"
+    $baseurl = 'absent'
   } else {
-   $mirrorlist = 'absent'
-   $baseurl = "${repo_centos::repourl}/${repo_centos::urlbit}/extras/\$basearch/"
+    $mirrorlist = 'absent'
+    $baseurl = "${repo_centos::repourl}/${repo_centos::urlbit}/extras/\$basearch/"
   }
 
   #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
