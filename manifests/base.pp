@@ -8,6 +8,13 @@ class repo_centos::base {
   } else {
     $enabled = '0'
   }
+  if $repo_centos::enable_mirrorlist {
+   $mirrorlist = "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=os${repo_centos::mirrorlist_tail}"
+   $baseurl = 'absent'
+  } else {
+   $mirrorlist = 'absent'
+   $baseurl = "${repo_centos::repourl}/${repo_centos::urlbit}/os/\$basearch/"
+  }
 
   #mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
   #baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/
@@ -18,8 +25,8 @@ class repo_centos::base {
   }
 
   yumrepo { 'base':
-    baseurl    => "${repo_centos::repourl}/${repo_centos::urlbit}/os/\$basearch/",
-    mirrorlist => "${repo_centos::mirrorlisturl}/?release=\$releasever&arch=\$basearch&repo=os${repo_centos::mirrorlist_tail}",
+    baseurl    => $baseurl,
+    mirrorlist => $mirrorlist,
     descr      => 'CentOS-$releasever - Base',
     enabled    => $enabled,
     gpgcheck   => '1',

@@ -13,6 +13,7 @@ class repo_centos::params {
   $debug_repourl               = 'http://debuginfo.centos.org'
   $source_repourl              = 'http://vault.centos.org'
   $mirrorlisturl               = 'http://mirrorlist.centos.org'
+  $enable_mirrorlist           = true
   $enable_base                 = true
   $enable_contrib              = false
   $enable_cr                   = false
