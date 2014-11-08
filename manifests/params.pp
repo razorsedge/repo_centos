@@ -34,7 +34,7 @@ class repo_centos::params {
   $ensure_source               = 'present'
   $ensure_debug                = 'present'
 
-  if $::operatingsystemmajrelease -ge '6' {
+  if $releasever >= '6' {
     $mirrorlist_tail           = '&infra=$infra'
   }
 }
