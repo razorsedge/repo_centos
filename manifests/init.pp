@@ -28,6 +28,9 @@
 # $enable_updates::                Enable the CentOS Updates Repo
 #                                  type:boolean
 #
+# $enable_fasttrack::              Enable the CentOS Fasttrack Repo
+#                                  type:boolean
+#
 # === Usage:
 # * Simple usage:
 #
@@ -58,6 +61,7 @@ class repo_centos (
     $enable_updates              = $repo_centos::params::enable_updates,
     $enable_source               = $repo_centos::params::enable_source,
     $enable_debug                = $repo_centos::params::enable_debug,
+    $enable_fasttrack            = $repo_centos::params::enable_fasttrack,
     $ensure_base                 = $repo_centos::params::ensure_base,
     $ensure_contrib              = $repo_centos::params::ensure_contrib,
     $ensure_cr                   = $repo_centos::params::ensure_cr,
@@ -67,6 +71,7 @@ class repo_centos (
     $ensure_updates              = $repo_centos::params::ensure_updates,
     $ensure_source               = $repo_centos::params::ensure_source,
     $ensure_debug                = $repo_centos::params::ensure_debug,
+    $ensure_fasttrack            = $repo_centos::params::ensure_fasttrack,
   ) inherits repo_centos::params {
 
   validate_string($repourl)
@@ -81,6 +86,7 @@ class repo_centos (
   validate_bool($enable_updates)
   validate_bool($enable_source)
   validate_bool($enable_debug)
+  validate_bool($enable_fasttrack)
 
   if $::operatingsystem == 'CentOS' {
     $releasever = $repo_centos::params::releasever
@@ -102,6 +108,7 @@ class repo_centos (
     include repo_centos::updates
     include repo_centos::source
     include repo_centos::debug
+    include repo_centos::fasttrack
 
     anchor { 'repo_centos::start': }->
     Class['repo_centos::base']->
@@ -113,6 +120,7 @@ class repo_centos (
     Class['repo_centos::updates']->
     Class['repo_centos::source']->
     Class['repo_centos::debug']->
+    Class['repo_centos::fasttrack']->
     anchor { 'repo_centos::end': }->
     Package<| |>
 

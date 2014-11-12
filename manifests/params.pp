@@ -21,6 +21,7 @@ class repo_centos::params {
   $enable_updates              = true
   $enable_source               = false
   $enable_debug                = false
+  $enable_fasttrack            = false
   $ostype                      = 'CentOS'
   $urlbit                      = $releasever
   $ensure_base                 = 'present'
@@ -32,4 +33,5 @@ class repo_centos::params {
   $ensure_updates              = 'present'
   $ensure_source               = 'present'
   $ensure_debug                = 'present'
+  $ensure_fasttrack            = 'present'
 }

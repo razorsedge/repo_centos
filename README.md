@@ -42,6 +42,7 @@ Other repositories that will setup but disabled
   * centos-cr
   * centos-plus
   * centos-scl
+  * centos-fasttrack
 
 #### Parameters for `repo_centos` class
 
@@ -78,6 +79,10 @@ This only affects to CentOS 6 clients.
 #####`enable_updates`
 
 Boolean to decide if the CentOS Updates Repo should be enabled (defaults to true).
+
+#####`enable_fasttrack`
+
+Boolean to decide if the CentOS Fasttrack Repo should be enabled (defaults to false).
 
 ## Compatibility
 
